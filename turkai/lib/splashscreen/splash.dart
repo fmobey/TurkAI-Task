@@ -18,6 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
             builder: (BuildContext context) => ConnectionsPage())));
   }
 
+  Size screenSize() {
+    return MediaQuery.of(context).size;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +29,20 @@ class _SplashScreenState extends State<SplashScreen> {
       body: ListView(
         children: [
           SizedBox(
-            height: 300,
+            height: screenSize().height / 5,
           ),
           Center(
-            child: Image.asset('assets/splashlogo.gif'),
+            child: Container(
+                width: screenSize().height / 2,
+                child: Image.asset('assets/turk.png')),
+          ),
+          SizedBox(
+            height: screenSize().height / 10,
+          ),
+          Center(
+            child: Container(
+                width: screenSize().height / 6,
+                child: Image.asset('assets/splashlogo.gif')),
           ),
           SizedBox(
             height: 100,
