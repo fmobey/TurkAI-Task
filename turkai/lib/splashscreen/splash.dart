@@ -2,6 +2,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:turkai/checkinternet/connections.dart';
 import 'package:turkai/taskapp.dart';
+import 'package:get/get.dart';
+
+class SplashScreenPage extends StatelessWidget {
+  const SplashScreenPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Check Internet',
+      home: SplashScreen(),
+    );
+  }
+}
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,10 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 2),
-        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => ConnectionsPage())));
+    Timer(Duration(seconds: 2), () {
+      Get.off(ConnectionsPage());
+    });
   }
 
   Size screenSize() {

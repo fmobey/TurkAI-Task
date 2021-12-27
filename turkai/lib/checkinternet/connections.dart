@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 
 import 'package:turkai/taskapp.dart';
 
@@ -14,7 +15,6 @@ class ConnectionsPage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Check Internet',
-      builder: EasyLoading.init(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -37,17 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
   internet() async {
     while (connectionsstate == false) {
       try {
-        final result = await InternetAddress.lookup('www.google.com');
+        final result = await InternetAddress.lookup('task-21.herokuapp.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
           EasyLoading.showSuccess('Connected to the internet');
 
           setState(() {
             connectionsstate = true;
           });
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MyApp()),
-          );
+          Get.off(MyApp());
         }
       } on SocketException catch (_) {
         setState(() {
