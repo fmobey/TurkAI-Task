@@ -7,11 +7,8 @@ import 'package:turkai/checkinternet/connections.dart';
 import 'package:turkai/api/request.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import 'package:http/http.dart' as http;
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,14 +52,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return MediaQuery.of(context).size;
   }
 
-  Future<void> _refresh() => Future.delayed(Duration(seconds: 2), () {
+//madem TURKAI için yapıyorum, Cumhuriyetin kuruluş yılı kadar bekleme ekleyelim.
+  Future<void> _refresh() => Future.delayed(Duration(milliseconds: 1923), () {
         setState(() {
           _image = null;
         });
       });
   Future? getimagegalery() async {
+    //Permission yalnızca fonsiyon çalıştığında alınır
     await Permission.storage.request();
-
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
@@ -74,8 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future? getimagecamera() async {
+    //Permission yalnızca fonsiyon çalıştığında alınır
     await Permission.camera.request();
-
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = photo;
