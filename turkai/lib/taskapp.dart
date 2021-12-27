@@ -55,7 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return MediaQuery.of(context).size;
   }
 
-  Future<void> _refresh() => Future.delayed(Duration(seconds: 2), () {});
+  Future<void> _refresh() => Future.delayed(Duration(seconds: 2), () {
+        setState(() {
+          _image = null;
+        });
+      });
   Future? getimagegalery() async {
     await Permission.storage.request();
 
@@ -85,6 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
+      color: Color(0xffffffff),
+      backgroundColor: Color(0xff000000),
       onRefresh: _refresh,
       child: Container(
         decoration: BoxDecoration(
