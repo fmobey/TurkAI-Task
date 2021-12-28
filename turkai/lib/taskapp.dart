@@ -14,9 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Upload İmage',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
       home: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.black,
@@ -68,6 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // çekilen fotoğrafın cache içinde saklandığını görebilirsiniz
     if (_image != null) {
       print('- Path: ${_image!.path}');
+
+      Navigator.of(context, rootNavigator: true).pop();
+      EasyLoading.showToast('Pull down to reload image');
     }
   }
 
@@ -81,6 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // çekilen fotoğrafın cache içinde saklandığını görebilirsiniz
     if (_image != null) {
       print('- Path: ${_image!.path}');
+      Navigator.of(context, rootNavigator: true).pop();
+      EasyLoading.showToast('Pull down to reload image');
     }
   }
 
@@ -98,85 +101,82 @@ class _MyHomePageState extends State<MyHomePage> {
                 colors: [Color(0xffffffff), Color(0xff2c3e50)])),
         child: ListView(
           children: <Widget>[
-            SizedBox(
-              height: screenSize().height / 8,
-            ),
+            _image == null
+                ? SizedBox(
+                    height: screenSize().height / 4,
+                  )
+                : SizedBox(
+                    height: screenSize().height / 6,
+                  ),
             _image == null
                 ? Center(
+                    child: GestureDetector(
+                    onTap: () {
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          actionsAlignment: MainAxisAlignment.spaceAround,
+                          backgroundColor: Colors.white70,
+                          title: Text("Where to choose the picture?"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                getimagegalery();
+                              },
+                              child: Text("Gallery",
+                                  style: TextStyle(color: Colors.black)),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                getimagecamera();
+                              },
+                              child: Text("Camera",
+                                  style: TextStyle(color: Colors.black)),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                     child: Container(
-                        width: screenSize().width / 3,
+                        width: screenSize().width / 2,
                         child: Image.asset('assets/upload_image.png')),
-                  )
+                  ))
                 : Center(
                     child: ClipOval(
                     child: Image.file(
                       File(_image!.path),
                       fit: BoxFit.fill,
-                      width: screenSize().width / 2,
-                      height: screenSize().height / 4,
+                      width: 200,
+                      height: 200,
                     ),
                   )),
-            SizedBox(
-              height: screenSize().height / 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                MaterialButton(
-                  onPressed: getimagegalery,
-                  height: screenSize().height / 16,
-                  color: Color(0xd1000020),
-                  child: Text(
-                    "Galery",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      vertical: screenSize().height / 34,
-                      horizontal: screenSize().width / 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: getimagecamera,
-                  height: screenSize().height / 16,
-                  color: Color(0xd1000020),
-                  child: Text(
-                    "Camera",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      vertical: screenSize().height / 34,
-                      horizontal: screenSize().width / 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: screenSize().height / 30,
-            ),
             _image == null
-                ? Text("")
-                : MaterialButton(
+                ? SizedBox(
+                    height: screenSize().height / 14,
+                  )
+                : SizedBox(
+                    height: screenSize().height / 6,
+                  ),
+            _image == null
+                ? Center(
+                    child: Text("Please click for the images",
+                        style: TextStyle(
+                            color: Colors.white30,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500)))
+                : TextButton.icon(
                     onPressed: () async => {
                       requestImage("https://task-21.herokuapp.com/store",
                           File(_image!.path))
                     },
-                    height: 45,
-                    color: Color(0xff2c3e80),
-                    child: Text(
-                      "Upload",
-                      style: TextStyle(color: Colors.white, fontSize: 16.0),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: screenSize().height / 46,
-                        horizontal: screenSize().width / 2.57),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
+                    icon:
+                        Icon(Icons.cloud_upload, size: 48, color: Colors.white),
+                    label: Text("Upload",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 48,
+                            fontWeight: FontWeight.w500)),
+                  )
           ],
         ),
       ),

@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-
 import 'package:turkai/taskapp.dart';
 
 class ConnectionsPage extends StatelessWidget {

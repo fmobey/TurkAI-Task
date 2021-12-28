@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() => runApp(GetMaterialApp(
-    builder: EasyLoading.init(),
     debugShowCheckedModeBanner: false,
+    builder: EasyLoading.init(),
     home: MyApp9()));
 
 class MyApp9 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: SplashScreenPage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
   }
 }

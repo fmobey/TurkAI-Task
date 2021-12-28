@@ -4,19 +4,6 @@ import 'package:turkai/checkinternet/connections.dart';
 import 'package:turkai/taskapp.dart';
 import 'package:get/get.dart';
 
-class SplashScreenPage extends StatelessWidget {
-  const SplashScreenPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Check Internet',
-      home: SplashScreen(),
-    );
-  }
-}
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -39,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff000000),
-      body: ListView(
+      body: Column(
         children: [
           SizedBox(
             height: screenSize().height / 5,
@@ -50,16 +37,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Image.asset('assets/turk.png')),
           ),
           SizedBox(
-            height: screenSize().height / 10,
+            height: screenSize().height / 6,
           ),
           Center(
-            child: Container(
-                width: screenSize().height / 6,
-                child: Image.asset('assets/splashlogo.gif')),
-          ),
-          SizedBox(
-            height: 100,
-          ),
+              child: Text(
+            "TURKAI",
+            style: TextStyle(
+                color: Color(0xffffffff),
+                fontSize: 48,
+                fontWeight: FontWeight.w800),
+          )),
         ],
       ),
     );
