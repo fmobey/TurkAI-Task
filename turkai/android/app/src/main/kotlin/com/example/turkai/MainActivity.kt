@@ -1,6 +1,0 @@
-package com.example.turkai
-
-import io.flutter.embedding.android.FlutterActivity
-
-class MainActivity: FlutterActivity() {
-}
